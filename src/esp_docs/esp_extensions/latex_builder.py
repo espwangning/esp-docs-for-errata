@@ -60,6 +60,7 @@ class IdfLatexBuilder(LaTeXBuilder):
 
         # Retrieve docid for feedback link
         latex_package = latex_package.replace('<doc_id>', doc_id)
+        latex_package = latex_package.replace('<version_num>', version_num)
 
         with open(os.path.join(self.outdir, PACKAGE_NAME), 'w') as package_file:
             package_file.write(latex_package)
