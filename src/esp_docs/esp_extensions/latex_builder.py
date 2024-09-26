@@ -47,7 +47,6 @@ class IdfLatexBuilder(LaTeXBuilder):
             version_num = ''
         else:
             version_num = config.version_num[config.idf_target]
-        doc_language = config.language
         with open(os.path.join(package_path, PACKAGE_NAME), 'r') as template:
 
             latex_package = template.read()
@@ -59,13 +58,9 @@ class IdfLatexBuilder(LaTeXBuilder):
         idf_release_name = 'Release {}'.format(config.version.replace('_', '-'))
         latex_package = latex_package.replace('<idf_release_name>', idf_release_name)
 
-        # Retrieve docid and language for feedback link
+        # Retrieve docid for feedback link
         latex_package = latex_package.replace('<doc_id>', doc_id)
         latex_package = latex_package.replace('<version_num>', version_num)
-        # Change doc language from zh_CN to zh-hans which is used in espressif.com
-        if doc_language == 'zh_CN':
-            doc_language = 'zh-hans'
-        latex_package = latex_package.replace('<doc_language>', doc_language)
 
         with open(os.path.join(self.outdir, PACKAGE_NAME), 'w') as package_file:
             package_file.write(latex_package)
